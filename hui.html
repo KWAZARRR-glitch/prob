@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐸 КВА Кликер</title>
+    <style>
+        body {
+            background: #1a1a2e;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .header {
+            background: #9ACD32;
+            color: darkgreen;
+            padding: 30px;
+            margin: -20px -20px 20px -20px;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .click-button {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #9ACD32, #7CFC00);
+            color: white;
+            font-size: 1.5em;
+            border: none;
+            cursor: pointer;
+            margin: 20px;
+        }
+        
+        .score {
+            font-size: 3em;
+            color: #FFD700;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🐸 КВА КЛИКЕР</h1>
+        <p>Кликай, улучшай, достигай престижа! 🚀</p>
+    </div>
+    
+    <div class="score" id="score">0</div>
+    
+    <button class="click-button" onclick="clickFrog()">
+        <span style="font-size: 3em;">🐸</span><br>
+        КВАКАТЬ!<br>
+        <span id="clickBonus">+1</span>
+    </button>
+    
+    <div style="margin-top: 30px;">
+        <p>💪 Сила клика: <span id="clickPower">1</span></p>
+        <p>🤖 Авто-кликов: <span id="autoClick">0</span>/сек</p>
+    </div>
+
+    <script>
+        let gameState = {
+            score: 0,
+            clickPower: 1,
+            autoClickPower: 0
+        };
+
+        function clickFrog() {
+            gameState.score += gameState.clickPower;
+            document.getElementById('score').textContent = gameState.score;
+            
+            // Анимация кнопки
+            const button = document.querySelector('.click-button');
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => button.style.transform = 'scale(1)', 100);
+        }
+
+        function updateDisplay() {
+            document.getElementById('score').textContent = gameState.score;
+            document.getElementById('clickPower').textContent = gameState.clickPower;
+            document.getElementById('autoClick').textContent = gameState.autoClickPower;
+            document.getElementById('clickBonus').textContent = '+' + gameState.clickPower;
+        }
+
+        // Авто-кликер
+        setInterval(() => {
+            if (gameState.autoClickPower > 0) {
+                gameState.score += gameState.autoClickPower;
+                updateDisplay();
+            }
+        }, 1000);
+
+        updateDisplay();
+    </script>
+</body>
+</html>
